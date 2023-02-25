@@ -62,7 +62,7 @@ def terminal(board):
     for row, i in enumerate(board):
         
         # 1) row check
-        if row[0] == row[1] == row[2]: return True
+        if row[0] == row[1] == row[2] != EMPTY: return True
     
         for space, j in enumerate(row):
             # change to false if there is an empty space
@@ -71,15 +71,15 @@ def terminal(board):
 
             # 2) column check
             if i == 1:
-                if board[i-1][j] == board[i][j] == board[i+1][j]: return True
+                if board[i-1][j] == board[i][j] == board[i+1][j] != EMPTY: return True
         
     
     # 3) return if there were no empty spaces 
     if emptySpace == False: return True
 
     # 4) check the diagonals
-    if board[0][0] == board[1][1] == board[2][2]: return True
-    if board[0[2]] == board[1][1] == board[0][2]: return True
+    if board[0][0] == board[1][1] == board[2][2] != EMPTY: return True
+    if board[0[2]] == board[1][1] == board[0][2] != EMPTY: return True
 
     # if no conditions met return False
     return False
