@@ -43,7 +43,15 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    try:
+        if score(board) == 1:
+            return "X"
+        elif score(board) == -1:
+            return "O"
+        elif score(board) == 0:
+            return None
+    except:
+        raise NotImplementedError
 
 
 def terminal(board):
