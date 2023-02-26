@@ -22,14 +22,42 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+    # go through the board and count the number of X's and O's
+    # if there are more X's on the board -> return O
+    # if there are more O's on the board -> return X
+
+    num_of_x = 0
+    num_of_o = 0
+
+    for r in range(0,len(board)):
+        for c in range(0, len(board[0])):
+            if board[r][c] == X:
+               num_of_x += 1
+            elif board[r][c] == O:
+               num_of_o += 1
+
+    if num_of_o > num_of_x:
+        return X
+    else:
+        return O
 
 
 def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+    # if a spot is open or ("EMPTY") on the board 
+    # fill in the open spot on the board
+
+    # set of possible actions, each action is a tuple 
+    possible_actions = set()
+
+    for r in range(0,len(board)):
+        for c in range(0, len(board[0])):
+            if board[r][c] == EMPTY:
+                possible_actions.add((r, c))
+            
+    return possible_actions
 
 
 def result(board, action):
