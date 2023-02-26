@@ -55,15 +55,8 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    try:
-        if score(board) == 1:
-            return "X"
-        elif score(board) == -1:
-            return "O"
-        elif score(board) == 0:
-            return None
-    except:
-        raise NotImplementedError
+    
+    raise NotImplementedError
 
 
 def terminal(board):
@@ -111,7 +104,19 @@ def score(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    # accepts board as input
+    # runner.py already checks if board is at terminal state
+    try:
+        
+        if winner(board) == X:
+            return 1
+        if winner(board) == O:
+            return -1
+        # if game ends in a tie, return 0
+        return 0
+        
+    except:
+        raise NotImplementedError
 
 
 def minimax(board):
