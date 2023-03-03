@@ -36,7 +36,7 @@ def player(board):
             elif board[r][c] == O:
                num_of_o += 1
 
-    if num_of_o > num_of_x:
+    if num_of_o >= num_of_x:
         return X
     else:
         return O
