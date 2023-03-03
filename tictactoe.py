@@ -61,7 +61,7 @@ def winner(board):
         if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
         if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
         if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
-        if board[0][2] == board[1][1] == board[2][0]  == 'O': return 'O'
+        if board[0][2] == board[1][1] == board[2][0] == 'O': return 'O'
 
         return 'None'
 
@@ -83,12 +83,12 @@ def terminal(board):
     # 3) check if there are no empty spaces
     # 4) check the two diagonals]]
 
-    for row, i in enumerate(board):
+    for i, row in enumerate(board):
         
         # 1) row check
         if row[0] == row[1] == row[2] != EMPTY: return True
     
-        for space, j in enumerate(row):
+        for j, space in enumerate(row):
             # change to false if there is an empty space
             if space == EMPTY:
                 emptySpace = True
