@@ -82,7 +82,7 @@ def minimax(board):
     # if !player(board)  # we are the ai and want to win; max value
         # maxEval = -infinity
         # for each branch of actions(board)
-            # eval = minimax(branch, alpha, beta, false)
+            # eval = minimaxHelper(branch, alpha, beta)
             # maxEval = max(maxEval, eval)
             # alpha =  max(alpha, eval)
             # if beta <= alpha
@@ -91,7 +91,7 @@ def minimax(board):
 
     # else  # we are viewing the player; player wants min value for us
         # for each branch of actions(board)
-            # eval = minimax(branch, alpha, beta, true)
+            # eval = minimaxHelper(branch, alpha, beta)
             # minEval = min(minEval, eval)
             # beta = min(beta, eval)
         # return minEval
