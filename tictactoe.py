@@ -74,9 +74,9 @@ def minimax(board):
     # also lazy: infinity = 9999, -infinity = -9999
 
     if player(board) == 'X':
-        return minimaxHelper(board, -9999, +9999, 1)
+        return minimaxHelper(board, -9999, +9999, True)
     else:
-        return minimaxHelper(board, -9999, 9999, 0)
+        return minimaxHelper(board, -9999, 9999, False)
 
 def minimaxHelper(board, alpha, beta, maximizingPlayer):
 
@@ -89,7 +89,7 @@ def minimaxHelper(board, alpha, beta, maximizingPlayer):
     if maximizingPlayer:
         maxEval = -9999
         for branch in actions(board):
-            eval = minimaxHelper(result(board, branch), alpha, beta)
+            eval = minimaxHelper(result(board, branch), alpha, beta, False)
             maxEval = max(maxEval, eval)
             alpha =  max(alpha, eval)
             if beta <= alpha:
@@ -99,7 +99,7 @@ def minimaxHelper(board, alpha, beta, maximizingPlayer):
     else:
         minEval = 9999
         for branch in actions(board):
-            eval = minimaxHelper(result(board, branch), alpha, beta)
+            eval = minimaxHelper(result(board, branch), alpha, beta, True)
             minEval = min(minEval, eval)
             beta = min(beta, eval)
             if beta <= alpha:
