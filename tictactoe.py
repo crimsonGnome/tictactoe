@@ -68,12 +68,14 @@ def minimax(board):
     # the ai is the current player() so we know what letter 'X' or 'O' it is
     # if ai is 'X' we want the final score to be 1 (max)
     # if ai is '0' we want the final score to be -1 (min)
-    # also lazy: infinity = 9999, -infinity = -9999
+    # use math library: infinity = math.inf, -infinity = -math.inf
+
+    infinity = math.inf
 
     if player(board) == 'X':
-        return minimaxHelper(board, -9999, +9999, True)
+        return minimaxHelper(board, -infinity, infinity, True)
     else:
-        return minimaxHelper(board, -9999, 9999, False)
+        return minimaxHelper(board, -infinity, infinity, False)
 
 def minimaxHelper(board, alpha, beta, maximizingPlayer):
 
@@ -82,9 +84,10 @@ def minimaxHelper(board, alpha, beta, maximizingPlayer):
         return score(board)
     
     # recursive cases
+    infinity = math.inf
 
     if maximizingPlayer:
-        maxEval = -9999
+        maxEval = -infinity
         for branch in actions(board):
             eval = minimaxHelper(result(board, branch), alpha, beta, False)
             maxEval = max(maxEval, eval)
@@ -94,7 +97,7 @@ def minimaxHelper(board, alpha, beta, maximizingPlayer):
         return maxEval
 
     else:
-        minEval = 9999
+        minEval = infinity
         for branch in actions(board):
             eval = minimaxHelper(result(board, branch), alpha, beta, True)
             minEval = min(minEval, eval)
