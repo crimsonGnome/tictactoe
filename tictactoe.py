@@ -43,7 +43,31 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    if(terminal)
+        # Check if X or O wone 
+        for row, i in enumerate(board):
+        
+        # 1) row check
+        if row[0] == row[1] == row[2] == 'X': return 'X'
+        if row[0] == row[1] == row[2] == 'Y': return 'Y'
+
+        for space, j in enumerate(row):
+            # 2) column check
+            if i == 1:
+                if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
+                if board[i-1][j] == board[i][j] == board[i+1][j] == 'Y': return 'Y'
+
+        # Check both the x and y diagonals 
+        if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
+        if board[0][0] == board[1][1] == board[2][2] == 'Y': return 'Y'
+        if board[0[2]] == board[1][1] == board[0][2] == 'X': return 'X'
+        if board[0[2]] == board[1][1] == board[0][2] == 'Y': return 'Y'
+
+        return 'None'
+
+    # Only  returns if there is no Terminal State
+    return 'None'
+
 
 
 def terminal(board):
@@ -91,6 +115,9 @@ def score(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
+
+
+
     raise NotImplementedError
 
 
