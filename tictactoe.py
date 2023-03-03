@@ -43,25 +43,25 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    if(terminal)
+    if(terminal):
         # Check if X or O wone 
         for row, i in enumerate(board):
         
-        # 1) row check
-        if row[0] == row[1] == row[2] == 'X': return 'X'
-        if row[0] == row[1] == row[2] == 'O': return 'O'
+            # 1) row check
+            if row[0] == row[1] == row[2] == 'X': return 'X'
+            if row[0] == row[1] == row[2] == 'O': return 'O'
 
-        for space, j in enumerate(row):
-            # 2) column check
-            if i == 1:
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
+            for space, j in enumerate(row):
+                # 2) column check
+                if i == 1:
+                    if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
+                    if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
 
         # Check both the x and O diagonals 
         if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
         if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
-        if board[0[2]] == board[1][1] == board[0][2] == 'X': return 'X'
-        if board[0[2]] == board[1][1] == board[0][2] == 'O': return 'O'
+        if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
+        if board[0][2] == board[1][1] == board[2][0]  == 'O': return 'O'
 
         return 'None'
 
@@ -75,7 +75,7 @@ def terminal(board):
     Returns True if game is over, False otherwise.
     """
     # defulat var
-    emptySpace == False
+    emptySpace = False
 
     # 4 checks
     # 1) check if each row is matches
@@ -103,7 +103,7 @@ def terminal(board):
 
     # 4) check the diagonals
     if board[0][0] == board[1][1] == board[2][2] != EMPTY: return True
-    if board[0[2]] == board[1][1] == board[0][2] != EMPTY: return True
+    if board[0][2] == board[1][1] == board[2][0] != EMPTY: return True
 
     # if no conditions met return False
     return False
