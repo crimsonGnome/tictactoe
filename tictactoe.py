@@ -64,9 +64,6 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-# note: minimax will directly call terminal(), score(), player(), actions()
-# minimax will indirectly call result() from calling actions()
-# minimax will need all other functions implemented before working
 
     # the ai is the current player() so we know what letter 'X' or 'O' it is
     # if ai is 'X' we want the final score to be 1 (max)
