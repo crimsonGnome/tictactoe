@@ -49,19 +49,19 @@ def winner(board):
         
         # 1) row check
         if row[0] == row[1] == row[2] == 'X': return 'X'
-        if row[0] == row[1] == row[2] == 'Y': return 'Y'
+        if row[0] == row[1] == row[2] == 'O': return 'O'
 
         for space, j in enumerate(row):
             # 2) column check
             if i == 1:
                 if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'Y': return 'Y'
+                if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
 
-        # Check both the x and y diagonals 
+        # Check both the x and O diagonals 
         if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
-        if board[0][0] == board[1][1] == board[2][2] == 'Y': return 'Y'
+        if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
         if board[0[2]] == board[1][1] == board[0][2] == 'X': return 'X'
-        if board[0[2]] == board[1][1] == board[0][2] == 'Y': return 'Y'
+        if board[0[2]] == board[1][1] == board[0][2] == 'O': return 'O'
 
         return 'None'
 
