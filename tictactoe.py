@@ -73,13 +73,13 @@ def winner(board):
     """
     if(terminal)
         # Check if X or O wone 
-        for row, i in enumerate(board):
+        for i, row in enumerate(board):
         
         # 1) row check
         if row[0] == row[1] == row[2] == 'X': return 'X'
         if row[0] == row[1] == row[2] == 'O': return 'O'
 
-        for space, j in enumerate(row):
+        for j, space in enumerate(row):
             # 2) column check
             if i == 1:
                 if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
@@ -111,12 +111,12 @@ def terminal(board):
     # 3) check if there are no empty spaces
     # 4) check the two diagonals]]
 
-    for row, i in enumerate(board):
+    for i, row in enumerate(board):
         
         # 1) row check
         if row[0] == row[1] == row[2] != EMPTY: return True
     
-        for space, j in enumerate(row):
+        for j, space in enumerate(row):
             # change to false if there is an empty space
             if space == EMPTY:
                 emptySpace = True
