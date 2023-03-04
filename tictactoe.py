@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 
 import math
+import copy
 
 X = "X"
 O = "O"
@@ -64,34 +65,45 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
+    # takes "board" and "action" as input
+    # returns a new BOARD STATE (not actually modifying board)
+    try:
+        result = copy.deepcopy(board)
+        # let player decide their next move based on action (input)
+        result[action] = player(board)
+
+        return result
+    
+    # if the action is not valid for the board, then raise an exception
+    except:
+        raise NotImplementedError
 
 
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    if(terminal)
+    if(terminal):
         # Check if X or O wone 
         for i, row in enumerate(board):
         
-        # 1) row check
-        if row[0] == row[1] == row[2] == 'X': return 'X'
-        if row[0] == row[1] == row[2] == 'O': return 'O'
+            # 1) row check
+            if row[0] == row[1] == row[2] == 'X': return 'X'
+            if row[0] == row[1] == row[2] == 'O': return 'O'
 
-        for j, space in enumerate(row):
-            # 2) column check
-            if i == 1:
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
+            for j, space in enumerate(row):
+                # 2) column check
+                if i == 1:
+                    if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
+                    if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
 
-        # Check both the x and O diagonals 
-        if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
-        if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
-        if board[0[2]] == board[1][1] == board[0][2] == 'X': return 'X'
-        if board[0[2]] == board[1][1] == board[0][2] == 'O': return 'O'
+            # Check both the x and O diagonals 
+            if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
+            if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
+            if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
+            if board[0][2] == board[1][1] == board[2][0]  == 'O': return 'O'
 
-        return 'None'
+            return 'None'
 
     # Only  returns if there is no Terminal State
     return 'None'
@@ -103,7 +115,7 @@ def terminal(board):
     Returns True if game is over, False otherwise.
     """
     # defulat var
-    emptySpace == False
+    emptySpace = False
 
     # 4 checks
     # 1) check if each row is matches
@@ -131,7 +143,7 @@ def terminal(board):
 
     # 4) check the diagonals
     if board[0][0] == board[1][1] == board[2][2] != EMPTY: return True
-    if board[0[2]] == board[1][1] == board[0][2] != EMPTY: return True
+    if board[0][2] == board[1][1] == board[2][0] != EMPTY: return True
 
     # if no conditions met return False
     return False
@@ -143,14 +155,79 @@ def score(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
+    # accepts board as input
+    # runner.py already checks if board is at terminal state
+    try:
+        
+        if winner(board) == X:
+            return 1
+        if winner(board) == O:
+            return -1
+        # if game ends in a tie, return 0
+        return 0
+        
+    except:
+        raise NotImplementedError
 
-
-
-    raise NotImplementedError
 
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+
+    # note: the ai is either letter 'X' or 'O'
+    # we want the player to lose! >:)
+    # use math library: infinity = math.inf, -infinity = -math.inf
+
+    if terminal(board):
+        return None
+
+    bestMove = (1, 1)
+
+    if player(board) == 'X':
+        bestScore = -math.inf
+        for branch in actions(board):
+                score = minimaxHelper(board, 0, -math.inf, math.inf, False)
+                if score > bestScore:
+                    bestMove = branch
+    else:
+        bestScore = math.inf
+        for branch in actions(board):
+            score = minimaxHelper(board, 0, -math.inf, math.inf, True)
+            if score < bestScore:
+                bestMove = branch
+        
+    return bestMove
+
+def minimaxHelper(board, depth, alpha, beta, maximizingX):
+    # base case: leaf node, just returns 1 (X wins), 0 (draw), or -1 (O wins)
+    # reminder: the ai is trying to get the best score possible
+    if terminal(board):
+        return score(board)
+    
+    # recursive cases
+
+    # X's turn, maximize score
+    if maximizingX:
+        bestValue = -math.inf
+        for branch in actions(board):
+            value = minimaxHelper(result(board, branch), depth + 1, alpha, beta, False)
+            if value > bestValue:
+                bestValue = value - depth * 10
+            alpha = max(alpha, bestValue)
+            if beta <= alpha:
+                break
+        return bestValue
+
+    # O's turn, minimize score
+    else:
+        bestValue = math.inf
+        for branch in actions(board):
+            value = minimaxHelper(result(board, branch), depth + 1, alpha, beta, True)
+            if value < bestValue:
+                bestValue = value + depth * 10
+            beta = min(beta, bestValue)
+            if beta <= alpha:
+                break
+        return bestValue
