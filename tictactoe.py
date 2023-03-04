@@ -94,16 +94,16 @@ def winner(board):
             for j, space in enumerate(row):
                 # 2) column check
                 if i == 1:
-                    if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
-                    if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
+                    if board[0][j] == board[1][j] == board[2][j] == 'X': return 'X'
+                    if board[0][j] == board[1][j] == board[2][j] == 'O': return 'O'
 
-            # Check both the x and O diagonals 
-            if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
-            if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
-            if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
-            if board[0][2] == board[1][1] == board[2][0]  == 'O': return 'O'
+        # Check both the x and O diagonals 
+        if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
+        if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
+        if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
+        if board[0][2] == board[1][1] == board[2][0] == 'O': return 'O'
 
-            return 'None'
+        return 'None'
 
     # Only  returns if there is no Terminal State
     return 'None'
