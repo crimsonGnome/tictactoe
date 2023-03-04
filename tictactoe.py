@@ -49,15 +49,12 @@ def actions(board):
     """
     # if a spot is open or ("EMPTY") on the board 
     # fill in the open spot on the board
-
     # set of possible actions, each action is a tuple 
     possible_actions = set()
-
     for r in range(0,len(board)):
         for c in range(0, len(board[0])):
             if board[r][c] == EMPTY:
                 possible_actions.add((r, c))
-            
     return possible_actions
 
 
@@ -71,7 +68,7 @@ def result(board, action):
         result = copy.deepcopy(board)
         # let player decide their next move based on action (input)
         result[action[0]][action[1]] = player(board)
-
+        print(result)
         return result
     
     # if the action is not valid for the board, then raise an exception
@@ -83,29 +80,29 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    if(terminal):
-        # Check if X or O won
-        for i, row in enumerate(board):
-        
-            # 1) row check
-            if row[0] == row[1] == row[2] == 'X': return 'X'
-            if row[0] == row[1] == row[2] == 'O': return 'O'
+    # 1) Row check
+    if board[0][0] == board[0][1] == board[0][2] == 'X': return 'X'
+    if board[0][0] == board[0][1] == board[0][2] == 'O': return 'O'
+    if board[1][0] == board[1][1] == board[1][2] == 'X': return 'X'
+    if board[1][0] == board[1][1] == board[1][2] == 'O': return 'O'
+    if board[2][0] == board[2][1] == board[2][2] == 'X': return 'X'
+    if board[2][0] == board[2][1] == board[2][2] == 'O': return 'O'
 
-        for space, j in enumerate(row):
-            # 2) column check
-            if i == 1:
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'X': return 'X'
-                if board[i-1][j] == board[i][j] == board[i+1][j] == 'O': return 'O'
+    # 2) Column check
+    if board[0][0] == board[1][0] == board[2][0] == 'X': return 'X'
+    if board[0][0] == board[1][0] == board[2][0] == 'O': return 'O'
+    if board[0][1] == board[1][1] == board[2][1] == 'X': return 'X'
+    if board[0][1] == board[1][1] == board[2][1] == 'O': return 'O'
+    if board[0][2] == board[1][2] == board[2][2] == 'X': return 'X'
+    if board[0][2] == board[1][2] == board[2][2] == 'O': return 'O'
 
-        # Check both the x and O diagonals 
-        if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
-        if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
-        if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
-        if board[0][2] == board[1][1] == board[2][0] == 'O': return 'O'
+    # 3) Diagonals
+    if board[0][0] == board[1][1] == board[2][2] == 'X': return 'X'
+    if board[0][0] == board[1][1] == board[2][2] == 'O': return 'O'
+    if board[0][2] == board[1][1] == board[2][0] == 'X': return 'X'
+    if board[0][2] == board[1][1] == board[2][0] == 'O': return 'O'
 
-        return 'None'
-
-    # Only returns if there is no Terminal State
+    # No terminal state, return None
     return 'None'
 
 
@@ -114,41 +111,23 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    # default var
-    emptySpace = False
+    # 1) Row check
+    if board[0][0] == board[0][1] == board[0][2] != EMPTY: return True
+    if board[1][0] == board[1][1] == board[1][2] != EMPTY: return True
+    if board[2][0] == board[2][1] == board[2][2] != EMPTY: return True
 
-    # 4 checks
-    # 1) check if each row is matches
-    # 2) check if each column matches
-    # 3) check if there are no empty spaces
-    # 4) check the two diagonals
+    # 2) Column check
+    if board[0][0] == board[1][0] == board[2][0] != EMPTY: return True
+    if board[0][1] == board[1][1] == board[2][1] != EMPTY: return True
+    if board[0][2] == board[1][2] == board[2][2] != EMPTY: return True
 
-    for i, row in enumerate(board):
-        
-        # 1) row check
-        if row[0] == row[1] == row[2] != EMPTY: return True
-    
-        for j, space in enumerate(row):
-            # change to false if there is an empty space
-            if space == EMPTY:
-                emptySpace = True
-
-            # 2) column check
-            if i == 1:
-                if board[i-1][j] == board[i][j] == board[i+1][j] != EMPTY: return True
-        
-    
-    # 3) return if there were no empty spaces 
-    if emptySpace == False: return True
-
-    # 4) check the diagonals
+    # 3) Diagonals
     if board[0][0] == board[1][1] == board[2][2] != EMPTY: return True
-    if board[0][2] == board[1][1] == board[0][2] != EMPTY: return True
+    if board[0][2] == board[1][1] == board[2][0] != EMPTY: return True
 
-    # if no conditions met return False
+    # No conditions met, return False
     return False
 
-    raise NotImplementedError
 
 
 def score(board):
@@ -159,9 +138,9 @@ def score(board):
     # runner.py already checks if board is at terminal state
     try:
         
-        if winner(board) == X:
+        if winner(board) == 'X':
             return 1
-        if winner(board) == O:
+        if winner(board) == 'O':
             return -1
         # if game ends in a tie, return 0
         return 0
@@ -175,43 +154,58 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
 
-    # the ai is the current player() so we know what letter 'X' or 'O' it is
-    # if ai is 'X' we want the final score to be 1 (max)
-    # if ai is '0' we want the final score to be -1 (min)
+    # note: the ai is either letter 'X' or 'O'
+    # we want the player to lose! >:)
     # use math library: infinity = math.inf, -infinity = -math.inf
 
-    infinity = math.inf
+    if terminal(board):
+        return None
+
+    bestMove = (1, 1)
 
     if player(board) == 'X':
-        return minimaxHelper(board, -infinity, infinity, True)
+        bestScore = -math.inf
+        for branch in actions(board):
+                score = minimaxHelper(board, 0, -math.inf, math.inf, False)
+                if score > bestScore:
+                    bestMove = branch
     else:
-        return minimaxHelper(board, -infinity, infinity, False)
+        bestScore = math.inf
+        for branch in actions(board):
+            score = minimaxHelper(board, 0, -math.inf, math.inf, True)
+            if score < bestScore:
+                bestMove = branch
+        
+    return bestMove
 
-def minimaxHelper(board, alpha, beta, maximizingPlayer):
-
-    # base case: leaf node, just returns 1, 0, or -1
+def minimaxHelper(board, depth, alpha, beta, maximizingX):
+    # base case: leaf node, just returns 1 (X wins), 0 (draw), or -1 (O wins)
+    # reminder: the ai is trying to get the best score possible
     if terminal(board):
         return score(board)
     
     # recursive cases
-    infinity = math.inf
 
-    if maximizingPlayer:
-        maxEval = -infinity
+    # X's turn, maximize score
+    if maximizingX:
+        bestValue = -math.inf
         for branch in actions(board):
-            eval = minimaxHelper(result(board, branch), alpha, beta, False)
-            maxEval = max(maxEval, eval)
-            alpha =  max(alpha, eval)
+            value = minimaxHelper(result(board, branch), depth + 1, alpha, beta, False)
+            if value > bestValue:
+                bestValue = value - depth * 10
+            alpha = max(alpha, bestValue)
             if beta <= alpha:
                 break
-        return maxEval
+        return bestValue
 
+    # O's turn, minimize score
     else:
-        minEval = infinity
+        bestValue = math.inf
         for branch in actions(board):
-            eval = minimaxHelper(result(board, branch), alpha, beta, True)
-            minEval = min(minEval, eval)
-            beta = min(beta, eval)
+            value = minimaxHelper(result(board, branch), depth + 1, alpha, beta, True)
+            if value < bestValue:
+                bestValue = value + depth * 10
+            beta = min(beta, bestValue)
             if beta <= alpha:
                 break
-        return minEval
+        return bestValue
