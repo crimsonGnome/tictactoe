@@ -70,7 +70,7 @@ def result(board, action):
     try:
         result = copy.deepcopy(board)
         # let player decide their next move based on action (input)
-        result[action] = player(board)
+        result[action[0]][action[1]] = "X"
 
         return result
     
