@@ -29,7 +29,8 @@ def player(board):
 
     num_of_x = 0
     num_of_o = 0
-
+    
+    # Loop through and count x and o
     for r, row in enumerate(board):
         for c, space in enumerate(row):
             if board[r][c] == 'X':
@@ -37,8 +38,7 @@ def player(board):
             elif board[r][c] == 'O':
                num_of_o += 1
 
-    print(f'num of o {num_of_o}')
-    print(f'num of x {num_of_x}')
+    # if O > X then return
     if num_of_o >= num_of_x:
         return 'X'
     else:
@@ -190,22 +190,25 @@ def minimax(board):
 
     bestMove = (1, 1)
 
+
     if player(board) == 'X':
         bestScore = -math.inf
         for branch in actions(board):
-                score = minimaxHelper(board, 0, -math.inf, math.inf, False)
+                score = minimaxHelper(result(board, branch), False)
                 if score > bestScore:
+                    bestScore = score
                     bestMove = branch
     else:
         bestScore = math.inf
         for branch in actions(board):
-            score = minimaxHelper(board, 0, -math.inf, math.inf, True)
+            score = minimaxHelper(result(board, branch), True)
             if score < bestScore:
+                bestScore = score
                 bestMove = branch
         
     return bestMove
 
-def minimaxHelper(board, depth, alpha, beta, maximizingX):
+def minimaxHelper(board, maximizingX):
     # base case: leaf node, just returns 1 (X wins), 0 (draw), or -1 (O wins)
     # reminder: the ai is trying to get the best score possible
     if terminal(board):
@@ -215,24 +218,20 @@ def minimaxHelper(board, depth, alpha, beta, maximizingX):
 
     # X's turn, maximize score
     if maximizingX:
-        bestValue = -math.inf
+        bestScore = -math.inf 
         for branch in actions(board):
-            value = minimaxHelper(result(board, branch), depth + 1, alpha, beta, False)
-            if value > bestValue:
-                bestValue = value - depth * 10
-            alpha = max(alpha, bestValue)
-            if beta <= alpha:
-                break
-        return bestValue
+            value = minimaxHelper(result(board, branch), False)
+            if value > bestScore:
+                bestScore = value
+           
+        return bestScore
 
     # O's turn, minimize score
     else:
-        bestValue = math.inf
+        bestScore = math.inf 
         for branch in actions(board):
-            value = minimaxHelper(result(board, branch), depth + 1, alpha, beta, True)
-            if value < bestValue:
-                bestValue = value + depth * 10
-            beta = min(beta, bestValue)
-            if beta <= alpha:
-                break
-        return bestValue
+            value = minimaxHelper(result(board, branch), True)
+            if value < bestScore:
+                bestScore = value 
+        return bestScore
+    
