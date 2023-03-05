@@ -30,17 +30,19 @@ def player(board):
     num_of_x = 0
     num_of_o = 0
 
-    for r in range(0,len(board)):
-        for c in range(0, len(board[0])):
-            if board[r][c] == X:
+    for r, row in enumerate(board):
+        for c, space in enumerate(row):
+            if board[r][c] == 'X':
                num_of_x += 1
-            elif board[r][c] == O:
+            elif board[r][c] == 'O':
                num_of_o += 1
 
+    print(f'num of o {num_of_o}')
+    print(f'num of x {num_of_x}')
     if num_of_o >= num_of_x:
-        return X
+        return 'X'
     else:
-        return O
+        return 'O'
 
 
 def actions(board):
@@ -70,7 +72,10 @@ def result(board, action):
     try:
         result = copy.deepcopy(board)
         # let player decide their next move based on action (input)
-        result[action[0]][action[1]] = "X"
+        if(player(board) == 'X'):
+            result[action[0]][action[1]] = "X"
+        else: 
+            result[action[0]][action[1]] = "O"
 
         return result
     
