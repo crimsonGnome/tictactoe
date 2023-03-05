@@ -59,7 +59,7 @@ def actions(board):
         for c in range(0, len(board[0])):
             if board[r][c] == EMPTY:
                 possible_actions.add((r, c))
-            
+         
     return possible_actions
 
 
@@ -184,22 +184,27 @@ def minimax(board):
     # note: the ai is either letter 'X' or 'O'
     # we want the player to lose! >:)
     # use math library: infinity = math.inf, -infinity = -math.inf
-
+    
+    # return if board is full
     if terminal(board):
         return None
 
     bestMove = (1, 1)
 
-
+    # Determine who we are playing as
     if player(board) == 'X':
+        # start off beste score as negative infinity (best)
         bestScore = -math.inf
+        # loop through to find maximum score
         for branch in actions(board):
                 score = minimaxHelper(result(board, branch), False)
                 if score > bestScore:
                     bestScore = score
                     bestMove = branch
     else:
+        # start off beste score as infinity (worst)
         bestScore = math.inf
+        # loop through to find minimum score
         for branch in actions(board):
             score = minimaxHelper(result(board, branch), True)
             if score < bestScore:
@@ -219,6 +224,7 @@ def minimaxHelper(board, maximizingX):
     # X's turn, maximize score
     if maximizingX:
         bestScore = -math.inf 
+        # find the hightest value and return
         for branch in actions(board):
             value = minimaxHelper(result(board, branch), False)
             if value > bestScore:
@@ -229,6 +235,7 @@ def minimaxHelper(board, maximizingX):
     # O's turn, minimize score
     else:
         bestScore = math.inf 
+        # find the lowest value and return
         for branch in actions(board):
             value = minimaxHelper(result(board, branch), True)
             if value < bestScore:
